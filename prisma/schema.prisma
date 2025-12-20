@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model diagnosistypes {
+  diagnosisTypeID        Int      @id @default(autoincrement())
+  diagnosisTypeName      String   @db.VarChar(250)
+  diagnosisTypeShortName String?  @db.VarChar(50)
+  isActive               Bytes    @db.Binary(1)
+  hospitalID             Int
+  description            String?  @db.VarChar(250)
+  userID                 Int
+  created                DateTime @db.DateTime(0)
+  modified               DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model doctors {
+  doctorID    Int      @id @default(autoincrement())
+  doctorName  String   @db.VarChar(250)
+  staffID     Int?
+  hospitalID  Int
+  description String?  @db.VarChar(250)
+  userID      Int
+  created     DateTime @db.DateTime(0)
+  modified    DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model hospitals {
+  hospitalId                   Int      @id @default(autoincrement())
+  hospitalName                 String   @db.VarChar(250)
+  defaultPaymentModeID         Int?
+  RegistrationCharge           Decimal? @db.Decimal(10, 0)
+  registrationValidityMonths   Int?
+  openingDate                  DateTime @db.DateTime(0)
+  openingPatientNo             Int
+  openingOPDNo                 Int
+  openingReceiptNo             Int
+  description                  String?  @db.VarChar(250)
+  userID                       Int
+  created                      DateTime @db.DateTime(0)
+  modified                     DateTime @db.DateTime(0)
+  address                      String?  @db.VarChar(500)
+  isRateEnableInReceipt        Int?
+  isRegistrationFeeEnableInOPD Int?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model opd {
+  opdID             Int      @id @default(autoincrement())
+  opdNo             String?  @db.VarChar(250)
+  opdDateTime       DateTime @db.DateTime(0)
+  patientID         Int
+  isFollowUpCase    Int?
+  treatedByDoctorID Int
+  registrationFee   Decimal  @db.Decimal(10, 0)
+  description       String?  @db.VarChar(250)
+  userID            Int
+  created           Int
+  modified          Int
+  oldOpdNo          String?  @db.VarChar(250)
+}
+
+model opddiagnosistypes {
+  opdDiagnosisTypeID Int      @id @default(autoincrement())
+  opdID              Int
+  diagnosisTypeID    Int
+  description        String?  @db.VarChar(250)
+  userID             Int
+  created            DateTime @db.DateTime(0)
+  modified           DateTime @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model patients {
+  patientID            Int      @id @default(autoincrement())
+  patientName          String   @db.VarChar(250)
+  patientNo            Int
+  registrationDateTime DateTime @db.DateTime(0)
+  age                  Int?
+  bloodGroup           String?  @db.VarChar(20)
+  gender               String   @db.VarChar(10)
+  occupation           String?  @db.VarChar(100)
+  address              String?  @db.VarChar(250)
+  hospitalID           Int
+  stateID              Int?
+  cityID               Int?
+  pinCode              String?  @db.VarChar(10)
+  patientscol          String?  @db.VarChar(45)
+  mobileNo             String   @db.VarChar(10)
+  referredBy           String?  @db.VarChar(250)
+  description          String?  @db.VarChar(250)
+  userID               Int
+  created              DateTime @db.DateTime(0)
+  modified             DateTime @db.DateTime(0)
+  emergencyContactNo   String?  @db.VarChar(20)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model receipts {
+  receiptID            Int       @id @default(autoincrement())
+  receiptNo            String?   @db.VarChar(250)
+  receiptDate          DateTime  @db.DateTime(0)
+  opdID                Int
+  amountPaid           Decimal   @db.Decimal(10, 0)
+  description          String?   @db.VarChar(250)
+  userID               Int
+  created              DateTime  @db.DateTime(0)
+  modified             DateTime  @db.DateTime(0)
+  paymentModeID        Int
+  referenceNo          String?   @db.VarChar(250)
+  referenceDate        DateTime? @db.DateTime(0)
+  cancellationDateTime DateTime? @db.DateTime(0)
+  cancellationByUserID Int?
+  cancellationRemarks  String?   @db.VarChar(500)
+}
+
+model subtreatmenttypes {
+  subTreatmentTypeID   Int      @id @default(autoincrement())
+  subTreatmentTypeName String   @db.VarChar(250)
+  treatmentTypeID      Int
+  rate                 Decimal  @db.Decimal(10, 0)
+  isActive             Bytes    @db.Binary(1)
+  description          String?  @db.VarChar(250)
+  userID               Int
+  created              DateTime @db.DateTime(0)
+  modified             DateTime @db.DateTime(0)
+  accountID            Int?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model treatmenttypes {
+  treatmentTypeID        Int      @id @default(autoincrement())
+  treatmentTypeName      String   @db.VarChar(250)
+  treatmentTypeShortName String?  @db.VarChar(50)
+  hospitalID             Int
+  description            String?  @db.VarChar(250)
+  userID                 Int
+  created                DateTime @db.DateTime(0)
+  modified               DateTime @db.DateTime(0)
+}
