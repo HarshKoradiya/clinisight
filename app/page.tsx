@@ -1,9 +1,10 @@
 import Image from "next/image";
+import { prisma } from "@/app/lib/prisma";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <h1 className="bg-primary">TEst</h1>
-    </div>
-  );
+export default async function Home() {
+  return(
+    <>
+              
+    </>
+    )
 }

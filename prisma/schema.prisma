@@ -9,73 +9,91 @@ datasource db {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model diagnosistypes {
-  diagnosisTypeID        Int      @id @default(autoincrement())
-  diagnosisTypeName      String   @db.VarChar(250)
-  diagnosisTypeShortName String?  @db.VarChar(50)
-  isActive               Bytes    @db.Binary(1)
+  diagnosisTypeID        Int                 @id @default(autoincrement())
+  diagnosisTypeName      String              @db.VarChar(250)
+  diagnosisTypeShortName String?             @db.VarChar(50)
+  isActive               Bytes               @default(dbgenerated("('1')")) @db.Binary(1)
   hospitalID             Int
-  description            String?  @db.VarChar(250)
+  description            String?             @db.VarChar(250)
   userID                 Int
-  created                DateTime @db.DateTime(0)
-  modified               DateTime @db.DateTime(0)
+  created                DateTime            @default(now()) @db.DateTime(0)
+  modified               DateTime            @default(now()) @db.DateTime(0)
+  opddiagnosistypes      opddiagnosistypes[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model doctors {
-  doctorID    Int      @id @default(autoincrement())
-  doctorName  String   @db.VarChar(250)
+  doctorID    Int       @id @default(autoincrement())
+  doctorName  String    @db.VarChar(250)
   staffID     Int?
   hospitalID  Int
-  description String?  @db.VarChar(250)
+  description String?   @db.VarChar(250)
   userID      Int
-  created     DateTime @db.DateTime(0)
-  modified    DateTime @db.DateTime(0)
+  created     DateTime  @default(now()) @db.DateTime(0)
+  modified    DateTime  @default(now()) @db.DateTime(0)
+  hospitals   hospitals @relation(fields: [hospitalID], references: [hospitalId], onUpdate: Restrict, map: "fk_doctor_hospital")
+  users       users     @relation(fields: [userID], references: [userId], onUpdate: Restrict, map: "fk_doctor_users")
+
+  @@index([hospitalID], map: "fk_doctor_hospital")
+  @@index([userID], map: "fk_doctor_users")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model hospitals {
-  hospitalId                   Int      @id @default(autoincrement())
-  hospitalName                 String   @db.VarChar(250)
+  hospitalId                   Int       @id @default(autoincrement())
+  hospitalName                 String    @db.VarChar(250)
   defaultPaymentModeID         Int?
-  RegistrationCharge           Decimal? @db.Decimal(10, 0)
+  RegistrationCharge           Decimal?  @db.Decimal(10, 0)
   registrationValidityMonths   Int?
-  openingDate                  DateTime @db.DateTime(0)
+  openingDate                  DateTime  @db.DateTime(0)
   openingPatientNo             Int
   openingOPDNo                 Int
   openingReceiptNo             Int
-  description                  String?  @db.VarChar(250)
+  description                  String?   @db.VarChar(250)
   userID                       Int
-  created                      DateTime @db.DateTime(0)
-  modified                     DateTime @db.DateTime(0)
-  address                      String?  @db.VarChar(500)
-  isRateEnableInReceipt        Int?
-  isRegistrationFeeEnableInOPD Int?
+  created                      DateTime  @default(now()) @db.DateTime(0)
+  modified                     DateTime  @db.DateTime(0)
+  address                      String?   @db.VarChar(500)
+  isRateEnableInReceipt        Bytes?    @db.Binary(1)
+  isRegistrationFeeEnableInOPD Bytes?    @db.Binary(1)
+  doctors                      doctors[]
+  users                        users     @relation(fields: [userID], references: [userId], onUpdate: Restrict, map: "fk_hospital_user")
+
+  @@index([userID], map: "fk_hospital_user")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model opd {
-  opdID             Int      @id @default(autoincrement())
-  opdNo             String?  @db.VarChar(250)
-  opdDateTime       DateTime @db.DateTime(0)
+  opdID             Int                 @id @default(autoincrement())
+  opdNo             String?             @db.VarChar(250)
+  opdDateTime       DateTime            @db.DateTime(0)
   patientID         Int
   isFollowUpCase    Int?
   treatedByDoctorID Int
-  registrationFee   Decimal  @db.Decimal(10, 0)
-  description       String?  @db.VarChar(250)
+  registrationFee   Decimal             @db.Decimal(10, 0)
+  description       String?             @db.VarChar(250)
   userID            Int
-  created           Int
-  modified          Int
-  oldOpdNo          String?  @db.VarChar(250)
+  created           Int                 @default(dbgenerated("(current_timestamp())"))
+  modified          Int                 @default(dbgenerated("(current_timestamp())"))
+  oldOpdNo          String?             @db.VarChar(250)
+  opddiagnosistypes opddiagnosistypes[]
 }
 
 model opddiagnosistypes {
-  opdDiagnosisTypeID Int      @id @default(autoincrement())
+  opdDiagnosisTypeID Int            @id @default(autoincrement())
   opdID              Int
   diagnosisTypeID    Int
-  description        String?  @db.VarChar(250)
+  description        String?        @db.VarChar(250)
   userID             Int
-  created            DateTime @db.DateTime(0)
-  modified           DateTime @db.DateTime(0)
+  created            DateTime       @default(now()) @db.DateTime(0)
+  modified           DateTime       @default(now()) @db.DateTime(0)
+  diagnosistypes     diagnosistypes @relation(fields: [diagnosisTypeID], references: [diagnosisTypeID], onUpdate: Restrict, map: "fk_opddiagnosistypes_diagnosistypeId")
+  opd                opd            @relation(fields: [opdID], references: [opdID], onUpdate: Restrict, map: "fk_opddiagnosistypes_opd")
+  users              users          @relation(fields: [userID], references: [userId], onUpdate: Restrict, map: "fk_opddiagnosistypes_user")
+
+  @@index([diagnosisTypeID], map: "fk_opddiagnosistypes_diagnosistypeId")
+  @@index([opdID], map: "fk_opddiagnosistypes_opd")
+  @@index([userID], map: "fk_opddiagnosistypes_user")
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
@@ -93,13 +111,12 @@ model patients {
   stateID              Int?
   cityID               Int?
   pinCode              String?  @db.VarChar(10)
-  patientscol          String?  @db.VarChar(45)
   mobileNo             String   @db.VarChar(10)
   referredBy           String?  @db.VarChar(250)
   description          String?  @db.VarChar(250)
   userID               Int
-  created              DateTime @db.DateTime(0)
-  modified             DateTime @db.DateTime(0)
+  created              DateTime @default(now()) @db.DateTime(0)
+  modified             DateTime @default(now()) @db.DateTime(0)
   emergencyContactNo   String?  @db.VarChar(20)
 }
 
@@ -112,8 +129,8 @@ model receipts {
   amountPaid           Decimal   @db.Decimal(10, 0)
   description          String?   @db.VarChar(250)
   userID               Int
-  created              DateTime  @db.DateTime(0)
-  modified             DateTime  @db.DateTime(0)
+  created              DateTime  @default(now()) @db.DateTime(0)
+  modified             DateTime  @default(now()) @db.DateTime(0)
   paymentModeID        Int
   referenceNo          String?   @db.VarChar(250)
   referenceDate        DateTime? @db.DateTime(0)
@@ -127,11 +144,11 @@ model subtreatmenttypes {
   subTreatmentTypeName String   @db.VarChar(250)
   treatmentTypeID      Int
   rate                 Decimal  @db.Decimal(10, 0)
-  isActive             Bytes    @db.Binary(1)
+  isActive             Bytes    @default(dbgenerated("('1')")) @db.Binary(1)
   description          String?  @db.VarChar(250)
   userID               Int
-  created              DateTime @db.DateTime(0)
-  modified             DateTime @db.DateTime(0)
+  created              DateTime @default(now()) @db.DateTime(0)
+  modified             DateTime @default(now()) @db.DateTime(0)
   accountID            Int?
 }
 
@@ -143,6 +160,19 @@ model treatmenttypes {
   hospitalID             Int
   description            String?  @db.VarChar(250)
   userID                 Int
-  created                DateTime @db.DateTime(0)
-  modified               DateTime @db.DateTime(0)
+  created                DateTime @default(now()) @db.DateTime(0)
+  modified               DateTime @default(now()) @db.DateTime(0)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model users {
+  userId            Int                 @id
+  userName          String              @db.VarChar(300)
+  userEmail         String?             @db.VarChar(300)
+  userPhone         String?             @db.VarChar(10)
+  userPassword      String?             @db.VarChar(50)
+  roleId            Int                 @default(1)
+  doctors           doctors[]
+  hospitals         hospitals[]
+  opddiagnosistypes opddiagnosistypes[]
 }

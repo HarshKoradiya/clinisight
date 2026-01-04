@@ -1,5 +1,5 @@
 # [CliniSight]
-> [A one-sentence tagline describing what your project does.]
+> [An OutPatient Department Management System]
 
 ![License](https://img.shields.io/github/license/[username]/[repo])
 ![Language](https://img.shields.io/github/languages/top/[username]/[repo])
@@ -23,10 +23,10 @@ Built with the tools and technologies:
 ---
 
 ## Overview
-[Project Name] is a [briefly describe the project type, e.g., web app, CLI tool, API] designed to [primary goal/problem it solves].
+[Clinisight] is a [Web Application] designed to [Manage The Different Things of the Hospitals like Patients,Doctors, Treatments etc].
 
-### Why [Project Name]?
-This project aims to enhance efficiency and accuracy in [target industry/task]. Key highlights include:
+### Why [Clinisight]?
+This project aims to enhance efficiency and accuracy in [Hospitals]. Key highlights include:
 * **🚀 High Performance:** Optimized for speed and scalability.
 * **🛠️ Developer Friendly:** Easy to customize and extend.
 * **🔒 Secure:** Built with modern security practices in mind.
