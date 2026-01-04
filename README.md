@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Clinisight
 
-## Getting Started
+> A comprehensive digital solution for automating Outpatient Department workflows, from registration to revenue analytics.
 
-First, run the development server:
+## What it is
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> The OPD Management System is a digital platform designed to replace manual paperwork with a streamlined, integrated workflow. It centralizes patient registration, doctor consultations, digital diagnoses, and automated billing to ensure faster service and improved care delivery.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## User Roles & Responsibilities
+The system utilizes role-based access to ensure every staff member can work efficiently within their scope.
+> Administrators: Configure hospital settings, doctor profiles, diagnosis master lists, and treatment charges.
+> Front Desk Staff: Manage instant registration for new and returning patients.
+> Doctors: Record digital diagnoses and manage patient consultation history seamlessly.
+> Billing Operators: Generate automated receipts and handle financial transactions.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Why Use This System?
 
-## Learn More
+- Minimize Paperwork: Transition to a fully paperless environment.
+- Reduce Wait Times: Faster registration and billing cycles.
+- Data Accuracy: Ensure uniformity in treatments and billing across the hospital.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Digital Registration: Capture detailed patient demographics and maintain secure, accessible history.
+- Smart OPD Workflow: Assign visits to doctors, track follow-up cases, and record visit-specific reasons.
+- Diagnostic Precision: Map standardized diagnosis types to patient visits for uniform medical records.
+- Automated Billing: Line-item receipts that auto-fetch charges for consultations and procedures.
+- Advanced Analytics: Generate reports based on dates, doctors, specific diagnoses, and revenue patterns.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Management & Reporting
+> Administrators can monitor hospital productivity through a comprehensive reporting module.
 
-## Deploy on Vercel
+  - Performance Monitoring: Track doctor-wise patient counts.
+  - Trend Analysis: Identify common diagnoses and patient patterns.
+  - Financial Health: Real-time revenue-based analytics for informed decision-making
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Community
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
