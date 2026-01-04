@@ -34,5 +34,3 @@ The system utilizes role-based access to ensure every staff member can work effi
   - Performance Monitoring: Track doctor-wise patient counts.
   - Trend Analysis: Identify common diagnoses and patient patterns.
   - Financial Health: Real-time revenue-based analytics for informed decision-making
-
-Users and the development team are usually in the [Discord server](https://discord.gg/3NwKFyR).
