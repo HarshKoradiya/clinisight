@@ -28,6 +28,9 @@ The system utilizes role-based access to ensure every staff member can work effi
 - Automated Billing: Line-item receipts that auto-fetch charges for consultations and procedures.
 - Advanced Analytics: Generate reports based on dates, doctors, specific diagnoses, and revenue patterns.
 
+## Database Schema Working
+-https://dbdiagram.io/d/Clinisight-695a383839fa3db27b0b9f09
+
 ## Management & Reporting
 > Administrators can monitor hospital productivity through a comprehensive reporting module.
 
